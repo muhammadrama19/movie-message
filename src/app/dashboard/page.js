@@ -248,7 +248,7 @@ export default function Dashboard() {
         <p className="text-lg text-gray-700 mb-4">
           Join the fun and let your favorite movies do the talking!
         </p>
-        <Button href="/send" className="bg-gray-500 hover:bg-blue-700">
+        <Button href="/send" className="bg-gray-500 hover:bg-gray-700">
           Send Your Menfess Now
           <Send size={24} />
         </Button>
