@@ -5,6 +5,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
+import Link from "next/link";
 
 export default function RootLayout({ children }) {
   return (
@@ -12,13 +13,12 @@ export default function RootLayout({ children }) {
       <body className="bg-gray-50 antialiased w-full">
         <header className="bg-white shadow-md sticky top-0 z-10 w-full">
           <div className="w-full px-4 py-4 flex items-center justify-between">
-            {/* Adjust font size for "Movie-Menfess" dynamically */}
-            <a
+            <Link
               href="/"
               className="text-xl sm:text-2xl md:text-lg font-bold text-gray-900"
             >
               Movie-Menfess
-            </a>
+            </Link>
             <NavigationMenu>
               <NavigationMenuList className="flex space-x-4">
                 <NavigationMenuItem>
