@@ -17,8 +17,9 @@ export default function Send() {
   const [loading, setLoading] = useState(false);
   const [debounceTimeout, setDebounceTimeout] = useState(null);
   const [isSending, setIsSending] = useState(false);
+  const [isSelecting, setIsSelecting] = useState(false); // Prevents duplicate search
 
-  //reset button will reset the searchQuery and selectedMovie
+  // Reset button clears the search and selected movie
   const resetButton = () => {
     setSearchQuery("");
     setSelectedMovie(null);
@@ -27,6 +28,11 @@ export default function Send() {
   };
 
   useEffect(() => {
+    if (isSelecting) {
+      setIsSelecting(false); // Reset after selection
+      return;
+    }
+
     if (!searchQuery.trim()) {
       setMovies([]);
       setSearchError("");
@@ -57,6 +63,14 @@ export default function Send() {
     return () => clearTimeout(timeout);
   }, [searchQuery]);
 
+  // Handles movie selection
+  const handleMovieSelect = (movie) => {
+    setIsSelecting(true); // Prevents re-triggering search
+    setSelectedMovie(movie);
+    setSearchQuery(movie.title);
+    setMovies([]);
+  };
+
   const onSubmit = async (formData) => {
     if (!selectedMovie) {
       setSearchError("Please select a movie before sending.");
@@ -84,9 +98,7 @@ export default function Send() {
 
       toast.success("Message sent successfully!");
       reset();
-      setSelectedMovie(null);
-      setMovies([]);
-      setSearchQuery("");
+      resetButton();
     } catch (error) {
       console.error("Error:", error.message);
       toast.error(
@@ -127,9 +139,8 @@ export default function Send() {
                 className="border border-gray-300 rounded-md p-2 w-full min-h-[100px]"
               />
             </div>
-            <Button type="submit" className="mt-4 w-full" disabled={isSending}>
-              {isSending ? "Sending..." : "Send"}
-            </Button>
+
+            {/* Submit Button inside the form */}
           </form>
         </div>
 
@@ -157,17 +168,14 @@ export default function Send() {
             )}
           </div>
 
+          {/* Movie Search Results */}
           {movies.length > 0 && (
             <div className="absolute top-20 left-0 w-full bg-white border border-gray-200 rounded-md shadow-md max-h-[250px] overflow-y-auto z-10">
               {movies.map((movie) => (
                 <div
                   key={movie.id}
                   className="p-2 hover:bg-gray-100 cursor-pointer flex items-center gap-2"
-                  onClick={() => {
-                    setSelectedMovie(movie);
-                    setSearchQuery(movie.title);
-                    setMovies([]);
-                  }}
+                  onClick={() => handleMovieSelect(movie)}
                 >
                   <img
                     src={movie.poster_url}
@@ -180,6 +188,7 @@ export default function Send() {
             </div>
           )}
 
+          {/* Selected Movie */}
           {selectedMovie && (
             <Card className="mt-4 p-4 flex items-center gap-4 min-h-[80px]">
               <img
@@ -194,6 +203,10 @@ export default function Send() {
           {searchError && (
             <p className="text-red-500 text-sm mt-2">{searchError}</p>
           )}
+
+          <Button type="submit" className="mt-4 w-full" disabled={isSending}>
+            {isSending ? "Sending..." : "Send"}
+          </Button>
         </div>
       </div>
     </div>
