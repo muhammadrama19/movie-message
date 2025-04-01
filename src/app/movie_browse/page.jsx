@@ -1,40 +1,23 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
-import { ListFilter } from "lucide-react"; // Genre Filter Icon
+import { ListFilter } from "lucide-react"; 
 import MovieCard from "@/components/custom/movie-card";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationNext,
-  PaginationPrevious,
-  PaginationLink,
-} from "@/components/ui/pagination";
+import { Pagination, PaginationContent, PaginationItem, PaginationNext, PaginationPrevious, PaginationLink } from "@/components/ui/pagination";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
 
 // Debounce function
 const useDebounce = (callback, delay) => {
-  const debounceFn = useCallback(
+  return useCallback(
     (...args) => {
       const handler = setTimeout(() => callback(...args), delay);
       return () => clearTimeout(handler);
     },
     [callback, delay]
   );
-
-  return debounceFn;
 };
 
 export default function MovieBrowse() {
@@ -83,9 +66,11 @@ export default function MovieBrowse() {
   // Debounced search function
   const debouncedSearch = useDebounce(setQuery, 500);
 
+  // Reset page to 1 when search or genre changes
   useEffect(() => {
+    setPage(1);
     debouncedSearch(search);
-  }, [search, debouncedSearch]);
+  }, [search, debouncedSearch, selectedGenre]); 
 
   useEffect(() => {
     fetchMovies();
@@ -110,7 +95,10 @@ export default function MovieBrowse() {
           />
           <Button
             className="px-4 py-2 bg-gray-300 hover:bg-gray-500 text-gray-900 hover:text-white transition duration-300 ease-in-out rounded-r-md"
-            onClick={() => setQuery(search)}
+            onClick={() => {
+              setPage(1); // Ensure page resets to 1 on search
+              setQuery(search);
+            }}
           >
             Search
           </Button>
@@ -120,8 +108,7 @@ export default function MovieBrowse() {
         <DropdownMenu>
           <DropdownMenuTrigger className="flex items-center justify-center w-full md:w-auto px-4 py-2 bg-gray-300 hover:bg-gray-500 text-gray-900 hover:text-white transition duration-300 ease-in-out rounded-md">
             <ListFilter className="w-3 h-5 mx-2" />
-            {genres.find((genre) => genre.id === selectedGenre)?.name ||
-              "All Genres"}
+            {genres.find((genre) => genre.id === selectedGenre)?.name || "All Genres"}
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-48">
             <DropdownMenuLabel>Genres</DropdownMenuLabel>
@@ -151,7 +138,7 @@ export default function MovieBrowse() {
           movies.map((movie) => (
             <Link
               key={movie.id}
-              href={`/movie_details?id=${movie.id}`} // Redirect to movie_details with the movie ID
+              href={`/movie_details?id=${movie.id}`}
               className="hover:scale-105 transition-transform duration-300"
             >
               <MovieCard
@@ -167,7 +154,7 @@ export default function MovieBrowse() {
         )}
       </div>
 
-      {/* Pagination - Kept the original logic */}
+      {/* Pagination */}
       {total > limit && (
         <Pagination>
           <PaginationContent className="flex justify-center">
@@ -184,12 +171,9 @@ export default function MovieBrowse() {
               <PaginationLink>{page}</PaginationLink>
             </PaginationItem>
 
-            {/* Ellipsis & Next Page */}
+            {/* Next Page */}
             {page < Math.ceil(total / limit) && (
               <>
-                <PaginationItem>
-                  <PaginationEllipsis />
-                </PaginationItem>
                 <PaginationItem>
                   <PaginationLink onClick={() => setPage(page + 1)}>
                     {page + 1}
@@ -202,9 +186,7 @@ export default function MovieBrowse() {
             <PaginationItem>
               <PaginationNext
                 onClick={() =>
-                  setPage((prev) =>
-                    Math.min(prev + 1, Math.ceil(total / limit))
-                  )
+                  setPage((prev) => Math.min(prev + 1, Math.ceil(total / limit)))
                 }
                 disabled={page >= Math.ceil(total / limit)}
               />
