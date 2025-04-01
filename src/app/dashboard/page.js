@@ -174,8 +174,10 @@ export default function Dashboard() {
       <div className="bg-gray-400 w-full max-w-4xl mx-auto rounded-lg shadow-lg p-6 mt-8 flex flex-col items-center text-center">
         <h2 className="text-2xl text-gray-700 font-bold mb-4">Ready to Share Your Movie Menfess?</h2>
         <p className="text-lg text-gray-700 mb-4">Join the fun and let your favorite movies do the talking!</p>
-        <Button href="/send" className="bg-gray-500 hover:bg-gray-700">
-          Send Your Menfess Now <Send size={24} />
+        <Button asChild className="bg-gray-500 hover:bg-gray-700">
+          <a href="/send">
+            Send Your Menfess Now <Send size={24} />
+          </a>
         </Button>
       </div>
     </div>

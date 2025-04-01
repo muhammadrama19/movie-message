@@ -66,6 +66,11 @@ export default function RootLayout({ children }) {
         </header>
         <main className="w-full px-4 py-6">{children}</main>
         <Toaster />
+        <footer className="bg-white shadow-md mt-4 py-4 text-center">
+          <p className="text-gray-600 text-sm">
+            &copy; {new Date().getFullYear()} Movie-Menfess. All rights reserved.
+          </p>
+        </footer>
       </body>
     </html>
   );

@@ -7,7 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
 import { Spinner } from "@/components/ui/spinner";
-
+import { Alert, AlertTitle,AlertDescription } from "@/components/ui/alert";
+import { CircleAlert } from "lucide-react";
 export default function Send() {
   const { register, handleSubmit, reset } = useForm();
   const [movies, setMovies] = useState([]);
@@ -109,10 +110,17 @@ export default function Send() {
   return (
     <div className="flex flex-col items-center justify-center w-full px-4 py-5">
       <div className="text-center mb-8">
-        <h1 className="text-3xl md:text-6xl font-bold">Send Message</h1>
-        <p className="text-lg md:text-xl text-gray-700/80 mt-2">
-          Send an anonymous message with a movie scene.
-        </p>
+        <h1 className="text-xl md:text-6xl font-bold">Send Message</h1>
+        <Alert className="mt-4 bg-yellow-50 border-yellow-400 text-yellow-800 rounded-md p-4 shadow-md">
+          <CircleAlert className="w-6 h-6 text-yellow-500 mt-1" />
+          <AlertTitle className="text-lg text-left font-semibold">Note:</AlertTitle>
+          <AlertDescription className="text-sm text-left text-gray-600">
+            Our service is not yet supported for menfess deleting. <br />
+            Please be careful with your messages. <br />
+          </AlertDescription>
+           
+
+        </Alert>
       </div>
 
       <form

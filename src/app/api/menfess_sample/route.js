@@ -19,19 +19,20 @@ export async function GET(req) {
 
     // Fetch messages with related movie data
     const messages = await prisma.messages.findMany({
+      take: 5,
       select: {
+      id: true,
+      movie_id: true,
+      receiver: true,
+      message: true,
+      movies: {
+        select: {
         id: true,
-        movie_id: true,
-        receiver: true,
-        message: true,
-        movies: {
-          select: {
-            id: true,
-            title: true,
-            poster_url: true,
-            release_year: true,
-          },
+        title: true,
+        poster_url: true,
+        release_year: true,
         },
+      },
       },
     });
 

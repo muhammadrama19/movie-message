@@ -21,6 +21,7 @@ export async function GET(req) {
                 movies.poster_url, 
                 movies.release_year,
                 movies.synopsis,
+                movies.director,
                 json_agg(DISTINCT genres.name) AS genres,
                 json_agg(
                     DISTINCT jsonb_build_object(
