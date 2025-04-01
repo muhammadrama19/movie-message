@@ -2,8 +2,7 @@ import { prisma } from "@/lib/db";
 import { NextResponse } from "next/server";
 
 export async function GET(req) {
-    console.log("Fetching movies using Prisma...");
-
+  
     // 🔹 Extract query parameters
     const { searchParams } = new URL(req.url);
     const page = parseInt(searchParams.get("page") || "1", 10);
@@ -12,7 +11,6 @@ export async function GET(req) {
     const genreId = searchParams.get("genre")?.trim();
     const offset = (page - 1) * limit;
 
-    console.log(`Page: ${page}, Limit: ${limit}, Search: "${search}", Genre: "${genreId}"`);
 
     try {
        
@@ -69,7 +67,6 @@ export async function GET(req) {
         }), { status: 200 });
 
     } catch (error) {
-        console.error("❌ Error fetching movies:", error);
         return new NextResponse(JSON.stringify({ error: "Failed to fetch movies" }), { status: 500 });
     }
 }

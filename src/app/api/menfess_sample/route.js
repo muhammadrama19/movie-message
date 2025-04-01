@@ -8,13 +8,13 @@ export async function GET(req) {
     });
 
     if (!testConnection) {
-      console.error("No movies found in the database.");
+    
       return new Response(
         JSON.stringify({ error: "No movies found in the database." }),
         { status: 500 }
       );
     } else {
-      console.log("Successfully connected to Prisma");
+    
     }
 
     // Fetch messages with related movie data
@@ -37,7 +37,6 @@ export async function GET(req) {
     });
 
     if (!messages || messages.length === 0) {
-      console.log("No messages found.");
       return new Response(JSON.stringify([]), { status: 200 });
     }
 
@@ -52,10 +51,9 @@ export async function GET(req) {
       receiver: message.receiver,
     }));
 
-    console.log("Fetched messages:", formattedData);
+   
     return new Response(JSON.stringify(formattedData), { status: 200 });
   } catch (error) {
-    console.error("Error fetching data:", error);
     return new Response(
       JSON.stringify({ error: "Error fetching data", details: error.message }),
       { status: 500 }

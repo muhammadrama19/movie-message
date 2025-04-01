@@ -8,9 +8,6 @@ export async function GET(req) {
   const search = searchParams.get("search")?.trim();
   const offset = (page - 1) * limit;
   const whereClause = {};
-
-  console.log(`Page: ${page}, Limit: ${limit}, Search: "${search}"`);
-
   try {
     if (search) {
       whereClause.receiver = { contains: search, mode: "insensitive" };
@@ -37,9 +34,6 @@ export async function GET(req) {
 
     // Get total count of messages for pagination
     const total = await prisma.messages.count({ where: whereClause });
-
-    console.log(`Fetched ${menfess.length} menfess, Total Count: ${total}`);
-
     const formattedMenfess = menfess.map((m) => ({
       id: m.id,
       receiver: m.receiver,
@@ -57,7 +51,6 @@ export async function GET(req) {
       status: 200,
     });
   } catch (error) {
-    console.error("Error fetching menfess data:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }

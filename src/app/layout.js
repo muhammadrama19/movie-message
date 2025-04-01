@@ -36,7 +36,7 @@ export default function RootLayout({ children }) {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-48">
                       <DropdownMenuItem asChild>
-                        <Link href="/menfess_browse">All Menfess</Link>
+                        <Link href="/menfess_browse">Browse Menfess</Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
                         <Link href="/movie_browse">Browse Movies</Link>

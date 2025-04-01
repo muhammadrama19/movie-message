@@ -10,7 +10,7 @@ export async function GET(req) {
         return NextResponse.json({ error: "Movie ID is required" }, { status: 400 });
     }
 
-    console.log(`Fetching details for movie ID: ${movieId}`);
+   
 
     try {
         // Execute raw SQL query
@@ -46,7 +46,6 @@ export async function GET(req) {
         return NextResponse.json(movieDetails[0], { status: 200 });
 
     } catch (error) {
-        console.error("Error fetching movie details:", error);
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }
 }

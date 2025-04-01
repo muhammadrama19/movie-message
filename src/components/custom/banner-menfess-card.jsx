@@ -1,8 +1,8 @@
 import { Card, CardTitle, CardDescription } from "../ui/card";
 
-export default function BannerCard({ message = "No message available", receiver = "Unknown" }) {
+export default function BannerCard({ message = "No menfess available", receiver = "Unknown" }) {
   const MAX_LENGTH = 250; // Maximum visible characters before truncation
-  const safeMessage = message || "No message available"; // Fallback for null/undefined message
+  const safeMessage = message || "No menfess available"; // Fallback for null/undefined message
   const isLong = safeMessage.length > MAX_LENGTH;
   const truncatedMessage = isLong ? safeMessage.slice(0, MAX_LENGTH) + "..." : safeMessage;
 

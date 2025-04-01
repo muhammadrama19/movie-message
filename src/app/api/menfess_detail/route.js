@@ -15,8 +15,7 @@ export async function GET(req) {
     );
   }
 
-  // Log the message ID being fetched
-  console.log(`Fetching details for message ID: ${messageId}`);
+ 
 
   // Fetch the message details from the database using raw SQL query
   try {
@@ -58,7 +57,7 @@ export async function GET(req) {
     // Return the formatted response
     return NextResponse.json(formattedDetails, { status: 200 });
   } catch (error) {
-    console.error("Error fetching message details:", error);
+   
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }

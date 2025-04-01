@@ -94,7 +94,7 @@ export default function Send() {
         throw new Error(errorData.error || "Failed to send message.");
       }
 
-      toast.success("Message sent successfully!");
+      toast.success("Menfess sent successfully!");
       reset();
       resetButton();
     } catch (error) {
@@ -110,13 +110,13 @@ export default function Send() {
   return (
     <div className="flex flex-col items-center justify-center w-full px-4 py-5">
       <div className="text-center mb-8">
-        <h1 className="text-xl md:text-6xl font-bold">Send Message</h1>
+        <h1 className="text-xl md:text-6xl font-bold">Send Menfess</h1>
         <Alert className="mt-4 bg-yellow-50 border-yellow-400 text-yellow-800 rounded-md p-4 shadow-md">
           <CircleAlert className="w-6 h-6 text-yellow-500 mt-1" />
           <AlertTitle className="text-lg text-left font-semibold">Note:</AlertTitle>
           <AlertDescription className="text-sm text-left text-gray-600">
             Our service is not yet supported for menfess deleting. <br />
-            Please be careful with your messages. <br />
+            Please be careful with your menfess. <br />
           </AlertDescription>
            
 
@@ -140,9 +140,9 @@ export default function Send() {
           </div>
 
           <div>
-            <label className="block font-medium">Message</label>
+            <label className="block font-medium">Menfess</label>
             <textarea
-              placeholder="Write your message..."
+              placeholder="Write your menfess..."
               {...register("message", { required: true })}
               className="border border-gray-300 rounded-md p-2 w-full min-h-[100px]"
             />

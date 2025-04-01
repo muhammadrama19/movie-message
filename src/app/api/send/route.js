@@ -24,15 +24,11 @@ export async function POST(req) {
         message,
       },
     });
-
-    console.log("Data inserted successfully:", data);
-
     return new Response(
       JSON.stringify({ message: "Message sent successfully", data }),
       { status: 200 }
     );
   } catch (err) {
-    console.error("Unexpected error:", err.message);
     return new Response(
       JSON.stringify({ error: "Internal Server Error", details: err.message }),
       { status: 500 }

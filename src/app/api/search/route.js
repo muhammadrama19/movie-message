@@ -28,7 +28,6 @@ export async function GET(req) {
 
     return NextResponse.json({ movies }, { status: 200 });
   } catch (err) {
-    console.error("API Error:", err);
     return NextResponse.json({ error: "Failed to fetch movies." }, { status: 500 });
   }
 }

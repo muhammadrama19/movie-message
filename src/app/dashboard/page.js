@@ -33,7 +33,7 @@ const geist = Geist({
 const StepsCardData = [
   {
     icon: <Pencil />,
-    header: "Step 1: Write Your Anonymous Message",
+    header: "Step 1: Write Your Anonymous Menfess",
     content: "Got something to say? Type your thoughts, confessions, or emotions—completely anonymous!",
   },
   {
