@@ -108,12 +108,12 @@ export default function Dashboard() {
           Send anonymous messages with a movie scene that says it all.
         </p>
         <div className="flex justify-center mb-6 space-x-4">
-          <Button href="/browse">
-            Browse Menfess <Search size={24} />
-          </Button>
-          <Button href="/send">
-            Send Menfess <Send size={24} />
-          </Button>
+          <a href="/menfess_browse" className="btn bg-black hover:bg-gray-500 text-white px-4 py-2 rounded-md flex items-center">
+            Browse Menfess <Search size={24} className="ml-2" />
+          </a>
+          <a href="/send" className="btn bg-black hover:bg-gray-500 text-white px-4 py-2 rounded-md flex items-center">
+            Send Menfess <Send size={24} className="ml-2" />
+          </a>
         </div>
       </div>
 
@@ -127,6 +127,13 @@ export default function Dashboard() {
             </CarouselItem>
           ))}
         </CarouselContent>
+        {/* Carousel Navigation Buttons */}
+        <CarouselPrevious className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white rounded-full p-2 shadow-lg hover:bg-gray-700 transition duration-300 ease-in-out">
+          <span>&lt;</span>
+        </CarouselPrevious>
+        <CarouselNext className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white rounded-full p-2 shadow-lg hover:bg-gray-700 transition duration-300 ease-in-out">
+          <span>&gt;</span>
+        </CarouselNext>
       </Carousel>
 
       {/* Why Share a Movie Menfess? */}

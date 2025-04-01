@@ -22,13 +22,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Skeleton } from "@/components/ui/skeleton";
+import Link from "next/link";
 
 // Debounce function
 const useDebounce = (callback, delay) => {
-  const debounceFn = useCallback((...args) => {
-    const handler = setTimeout(() => callback(...args), delay);
-    return () => clearTimeout(handler);
-  }, [callback, delay]);
+  const debounceFn = useCallback(
+    (...args) => {
+      const handler = setTimeout(() => callback(...args), delay);
+      return () => clearTimeout(handler);
+    },
+    [callback, delay]
+  );
 
   return debounceFn;
 };
@@ -116,14 +120,20 @@ export default function MovieBrowse() {
         <DropdownMenu>
           <DropdownMenuTrigger className="flex items-center justify-center w-full md:w-auto px-4 py-2 bg-gray-300 hover:bg-gray-500 text-gray-900 hover:text-white transition duration-300 ease-in-out rounded-md">
             <ListFilter className="w-3 h-5 mx-2" />
-            {genres.find((genre) => genre.id === selectedGenre)?.name || "All Genres"}
+            {genres.find((genre) => genre.id === selectedGenre)?.name ||
+              "All Genres"}
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-48">
             <DropdownMenuLabel>Genres</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => setSelectedGenre("")}>All Genres</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => setSelectedGenre("")}>
+              All Genres
+            </DropdownMenuItem>
             {genres.map((genre) => (
-              <DropdownMenuItem key={genre.id} onClick={() => setSelectedGenre(genre.id)}>
+              <DropdownMenuItem
+                key={genre.id}
+                onClick={() => setSelectedGenre(genre.id)}
+              >
                 {genre.name}
               </DropdownMenuItem>
             ))}
@@ -139,13 +149,18 @@ export default function MovieBrowse() {
           ))
         ) : movies.length > 0 ? (
           movies.map((movie) => (
-            <MovieCard
+            <Link
               key={movie.id}
-              poster_url={movie.poster_url}
-              title={movie.title}
-              year={movie.release_year}
-              genres={movie.genres}
-            />
+              href={`/movie_details?id=${movie.id}`} // Redirect to movie_details with the movie ID
+              className="hover:scale-105 transition-transform duration-300"
+            >
+              <MovieCard
+                poster_url={movie.poster_url}
+                title={movie.title}
+                year={movie.release_year}
+                genres={movie.genres}
+              />
+            </Link>
           ))
         ) : (
           <p className="text-gray-500">No movies found.</p>
@@ -186,7 +201,11 @@ export default function MovieBrowse() {
             {/* Next Button */}
             <PaginationItem>
               <PaginationNext
-                onClick={() => setPage((prev) => Math.min(prev + 1, Math.ceil(total / limit)))}
+                onClick={() =>
+                  setPage((prev) =>
+                    Math.min(prev + 1, Math.ceil(total / limit))
+                  )
+                }
                 disabled={page >= Math.ceil(total / limit)}
               />
             </PaginationItem>
