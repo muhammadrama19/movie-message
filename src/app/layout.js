@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className="w-full overflow-x-hidden">
       <body className="bg-gray-50 antialiased w-full">
         <header className="bg-white shadow-md sticky top-0 z-10 w-full">
-          <div className="w-full px-4 py-4 flex items-center justify-between">
+          <div className="w-full px-4 py-4 flex items-center justify-between gap-2">
             <Link
               href="/"
               className="text-xl sm:text-2xl md:text-lg font-bold text-gray-900"
