@@ -5,7 +5,14 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import Link from "next/link";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function RootLayout({ children }) {
   return (
@@ -21,13 +28,21 @@ export default function RootLayout({ children }) {
             </Link>
             <NavigationMenu>
               <NavigationMenuList className="flex space-x-4">
+                {/* Dropdown for Browse Menfess */}
                 <NavigationMenuItem>
-                  <NavigationMenuLink
-                    href="/browse"
-                    className="hover:text-gray-600"
-                  >
-                    Browse Menfess
-                  </NavigationMenuLink>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger className="hover:text-gray-600">
+                      Browse 
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-48">
+                      <DropdownMenuItem asChild>
+                        <Link href="/menfess_browse">All Menfess</Link>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <Link href="/movie_browse">Browse Movies</Link>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <NavigationMenuLink
@@ -49,9 +64,8 @@ export default function RootLayout({ children }) {
             </NavigationMenu>
           </div>
         </header>
-        <main className="w-full px-4 py-6">
-          {children}
-        </main>
+        <main className="w-full px-4 py-6">{children}</main>
+        <Toaster />
       </body>
     </html>
   );

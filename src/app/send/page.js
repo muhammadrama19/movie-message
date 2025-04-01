@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
+import { toast } from "sonner";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function Send() {
   const { register, handleSubmit, reset } = useForm();
@@ -14,6 +16,15 @@ export default function Send() {
   const [searchError, setSearchError] = useState("");
   const [loading, setLoading] = useState(false);
   const [debounceTimeout, setDebounceTimeout] = useState(null);
+  const [isSending, setIsSending] = useState(false);
+
+  //reset button will reset the searchQuery and selectedMovie
+  const resetButton = () => {
+    setSearchQuery("");
+    setSelectedMovie(null);
+    setMovies([]);
+    setSearchError("");
+  };
 
   useEffect(() => {
     if (!searchQuery.trim()) {
@@ -23,6 +34,7 @@ export default function Send() {
     }
 
     setLoading(true);
+
     if (debounceTimeout) clearTimeout(debounceTimeout);
 
     const timeout = setTimeout(async () => {
@@ -48,8 +60,11 @@ export default function Send() {
   const onSubmit = async (formData) => {
     if (!selectedMovie) {
       setSearchError("Please select a movie before sending.");
+      toast.error("Please select a movie before sending.");
       return;
     }
+
+    setIsSending(true);
 
     try {
       const res = await fetch("/api/send", {
@@ -67,13 +82,18 @@ export default function Send() {
         throw new Error(errorData.error || "Failed to send message.");
       }
 
-      alert("Message sent successfully!");
+      toast.success("Message sent successfully!");
       reset();
       setSelectedMovie(null);
       setMovies([]);
+      setSearchQuery("");
     } catch (error) {
       console.error("Error:", error.message);
-      alert(error.message || "Failed to send. Try again.");
+      toast.error(
+        error.message || "An error occurred while sending the message."
+      );
+    } finally {
+      setIsSending(false);
     }
   };
 
@@ -107,8 +127,8 @@ export default function Send() {
                 className="border border-gray-300 rounded-md p-2 w-full min-h-[100px]"
               />
             </div>
-            <Button type="submit" className="mt-4 w-full">
-              Send
+            <Button type="submit" className="mt-4 w-full" disabled={isSending}>
+              {isSending ? "Sending..." : "Send"}
             </Button>
           </form>
         </div>
@@ -124,9 +144,17 @@ export default function Send() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <Button onClick={() => {}} disabled={loading}>
-              {loading ? "Searching..." : "Search"}
+            <Button
+              type="button"
+              className="bg-red-500 hover:bg-red-600 text-white rounded-md px-4 py-2"
+              onClick={resetButton}
+            >
+              Reset
             </Button>
+
+            {loading && (
+              <Spinner className="w-5 h-5 text-gray-500 animate-spin" />
+            )}
           </div>
 
           {movies.length > 0 && (
@@ -137,6 +165,7 @@ export default function Send() {
                   className="p-2 hover:bg-gray-100 cursor-pointer flex items-center gap-2"
                   onClick={() => {
                     setSelectedMovie(movie);
+                    setSearchQuery(movie.title);
                     setMovies([]);
                   }}
                 >
@@ -162,7 +191,9 @@ export default function Send() {
             </Card>
           )}
 
-          {searchError && <p className="text-red-500 text-sm mt-2">{searchError}</p>}
+          {searchError && (
+            <p className="text-red-500 text-sm mt-2">{searchError}</p>
+          )}
         </div>
       </div>
     </div>

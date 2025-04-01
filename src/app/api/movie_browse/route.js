@@ -61,10 +61,6 @@ export async function GET(req) {
             genres: movie.movie_genres.map(g => g.genres.name)
         }));
 
-        console.log(`Fetched ${formattedMovies.length} movies.`);
-        console.log("Movies:", formattedMovies);
-        
-
         return new NextResponse(JSON.stringify({
             movies: formattedMovies,
             total,
