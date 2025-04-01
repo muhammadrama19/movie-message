@@ -17,9 +17,8 @@ export default function Send() {
   const [loading, setLoading] = useState(false);
   const [debounceTimeout, setDebounceTimeout] = useState(null);
   const [isSending, setIsSending] = useState(false);
-  const [isSelecting, setIsSelecting] = useState(false); // Prevents duplicate search
+  const [isSelecting, setIsSelecting] = useState(false);
 
-  // Reset button clears the search and selected movie
   const resetButton = () => {
     setSearchQuery("");
     setSelectedMovie(null);
@@ -29,7 +28,7 @@ export default function Send() {
 
   useEffect(() => {
     if (isSelecting) {
-      setIsSelecting(false); // Reset after selection
+      setIsSelecting(false);
       return;
     }
 
@@ -40,7 +39,6 @@ export default function Send() {
     }
 
     setLoading(true);
-
     if (debounceTimeout) clearTimeout(debounceTimeout);
 
     const timeout = setTimeout(async () => {
@@ -63,9 +61,8 @@ export default function Send() {
     return () => clearTimeout(timeout);
   }, [searchQuery]);
 
-  // Handles movie selection
   const handleMovieSelect = (movie) => {
-    setIsSelecting(true); // Prevents re-triggering search
+    setIsSelecting(true);
     setSelectedMovie(movie);
     setSearchQuery(movie.title);
     setMovies([]);
@@ -118,75 +115,79 @@ export default function Send() {
         </p>
       </div>
 
-      <div className="w-full max-w-4xl flex flex-col md:flex-row gap-8">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="w-full max-w-4xl flex flex-col md:flex-row gap-8"
+      >
         {/* Left Side: Recipient & Message */}
-        <div className="w-full md:w-1/2">
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-4">
-              <label className="block font-medium">Recipient</label>
-              <Input
-                type="text"
-                placeholder="Enter recipient name"
-                {...register("recipient", { required: true })}
-                className="border border-gray-300 rounded-md p-2 w-full"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block font-medium">Message</label>
-              <textarea
-                placeholder="Write your message..."
-                {...register("message", { required: true })}
-                className="border border-gray-300 rounded-md p-2 w-full min-h-[100px]"
-              />
-            </div>
-
-            {/* Submit Button inside the form */}
-          </form>
-        </div>
-
-        {/* Right Side: Movie Selection */}
-        <div className="w-full md:w-1/2 relative">
-          <label className="block font-medium">Pick a Movie</label>
-          <div className="flex gap-2">
+        <div className="w-full md:w-1/2 flex flex-col gap-4">
+          <div>
+            <label className="block font-medium">Recipient</label>
             <Input
               type="text"
-              placeholder="Search for a movie..."
+              placeholder="Enter recipient name"
+              {...register("recipient", { required: true })}
               className="border border-gray-300 rounded-md p-2 w-full"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <Button
-              type="button"
-              className="bg-red-500 hover:bg-red-600 text-white rounded-md px-4 py-2"
-              onClick={resetButton}
-            >
-              Reset
-            </Button>
-
-            {loading && (
-              <Spinner className="w-5 h-5 text-gray-500 animate-spin" />
-            )}
           </div>
 
-          {/* Movie Search Results */}
-          {movies.length > 0 && (
-            <div className="absolute top-20 left-0 w-full bg-white border border-gray-200 rounded-md shadow-md max-h-[250px] overflow-y-auto z-10">
-              {movies.map((movie) => (
-                <div
-                  key={movie.id}
-                  className="p-2 hover:bg-gray-100 cursor-pointer flex items-center gap-2"
-                  onClick={() => handleMovieSelect(movie)}
-                >
-                  <img
-                    src={movie.poster_url}
-                    alt="Poster"
-                    className="w-10 h-10 rounded-md object-cover"
-                  />
-                  <p className="text-md">{movie.title}</p>
-                </div>
-              ))}
+          <div>
+            <label className="block font-medium">Message</label>
+            <textarea
+              placeholder="Write your message..."
+              {...register("message", { required: true })}
+              className="border border-gray-300 rounded-md p-2 w-full min-h-[100px]"
+            />
+          </div>
+        </div>
+
+        {/* Right Side: Movie Selection + Send Button Below */}
+        <div className="w-full md:w-1/2 flex flex-col">
+          <label className="block font-medium">Pick a Movie</label>
+          
+          {/* Relative wrapper ensures search results are below the input */}
+          <div className="relative">
+            <div className="flex gap-2">
+              <Input
+                type="text"
+                placeholder="Search for a movie..."
+                className="border border-gray-300 rounded-md p-2 w-full"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <Button
+                type="button"
+                className="bg-red-500 hover:bg-red-600 text-white rounded-md px-4 py-2"
+                onClick={resetButton}
+              >
+                Reset
+              </Button>
             </div>
-          )}
+
+            {loading && (
+              <Spinner className="w-5 h-5 text-gray-500 animate-spin mt-2" />
+            )}
+
+            {/* Movie Search Results */}
+            {movies.length > 0 && (
+              <div className="absolute top-full left-0 w-full bg-white border border-gray-200 rounded-md shadow-md max-h-[250px] overflow-y-auto z-10 mt-1">
+                {movies.map((movie) => (
+                  <div
+                    key={movie.id}
+                    className="p-2 hover:bg-gray-100 cursor-pointer flex items-center gap-2"
+                    onClick={() => handleMovieSelect(movie)}
+                  >
+                    <img
+                      src={movie.poster_url}
+                      alt="Poster"
+                      className="w-10 h-10 rounded-md object-cover"
+                    />
+                    <p className="text-md">{movie.title}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
 
           {/* Selected Movie */}
           {selectedMovie && (
@@ -204,11 +205,12 @@ export default function Send() {
             <p className="text-red-500 text-sm mt-2">{searchError}</p>
           )}
 
+          {/* Send Button BELOW Movie Selection */}
           <Button type="submit" className="mt-4 w-full" disabled={isSending}>
             {isSending ? "Sending..." : "Send"}
           </Button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }
