@@ -110,7 +110,7 @@ export default function Dashboard() {
 
   return (
     <div
-      className={`${geist.className} flex flex-col items-center justify-center h-screen w-full text-gray-900`}
+      className={`${geist.className} flex flex-col items-center justify-center h-screen w-full text-gray-900  mt-[75rem] mb-[20rem] sm:mt-[40rem] mb-[5rem]`}
     >
       <div className="text-center relative mb-8">
         <h1 className="text-3xl md:text-6xl font-bold mb-4">

@@ -49,7 +49,7 @@ export default function RootLayout({ children }) {
             </NavigationMenu>
           </div>
         </header>
-        <main className="w-full px-4 py-6 mt-[75rem] mb-[20rem] sm:mt-[40rem] mb-[5rem]">
+        <main className="w-full px-4 py-6">
           {children}
         </main>
       </body>
