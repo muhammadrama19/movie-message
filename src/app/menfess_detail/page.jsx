@@ -39,7 +39,7 @@ function MovieDetails() {
   }, [messageId]);
 
   return (
-    <div className="max-w-5xl mx-auto p-4 flex flex-col lg:flex-row gap-8">
+    <div className="max-w-5xl mx-auto p-4 flex flex-col lg:flex-row gap-8 w-full">
       {/* LEFT SIDE: Sticky Movie Details */}
       <div className="w-full lg:w-1/3 flex flex-col gap-4">
         <div className="lg:sticky lg:top-20">

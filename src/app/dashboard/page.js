@@ -149,26 +149,29 @@ export default function Dashboard() {
       {/* See What People Are Confessing */}
       <h2 className="text-2xl text-gray-700 font-bold mt-8 mb-4 text-center">See What People Are Confessing...</h2>
       <Carousel plugins={[plugin.current]} className="w-full max-w-4xl mx-auto mb-8 px-4">
-        <CarouselContent className="flex gap-2">
-          {loading
-            ? Array.from({ length: 3 }).map((_, index) => (
-                <CarouselItem key={index} className="flex justify-center md:basis-1/2">
-                  <Skeleton className="w-64 h-96 rounded-md" />
-                </CarouselItem>
-              ))
-            : messages.map((message, index) => (
-                <CarouselItem key={index} className="flex justify-center md:basis-1/2">
-                  <CustomCard
-                    poster={message.movie_poster_url}
-                    title={message.movie_title}
-                    year={message.movie_release_year}
-                    message={message.message}
-                    receiver={message.receiver}
-                  />
-                </CarouselItem>
-              ))}
-        </CarouselContent>
-      </Carousel>
+  <CarouselContent className="flex gap-2">
+    {loading
+      ? Array.from({ length: 3 }).map((_, index) => (
+          <CarouselItem key={index} className="flex justify-center md:basis-1/2 flex-shrink-0 min-w-[80%] sm:min-w-[60%] md:min-w-[50%]">
+            <Skeleton className="w-64 h-96 rounded-md" />
+          </CarouselItem>
+        ))
+      : messages.map((message, index) => (
+          <CarouselItem key={index} className="flex justify-center md:basis-1/2 flex-shrink-0 min-w-[80%] sm:min-w-[60%] md:min-w-[50%]">
+            <CustomCard
+              className="w-full sm:w-80 min-w-0 flex-shrink-0" 
+              poster={message.movie_poster_url}
+              title={message.movie_title}
+              year={message.movie_release_year}
+              message={message.message}
+              receiver={message.receiver}
+            />
+          </CarouselItem>
+        ))}
+  </CarouselContent>
+</Carousel>
+
+
 
       {/* Final CTA */}
       <div className="bg-gray-400 w-full max-w-4xl mx-auto rounded-lg shadow-lg p-6 mt-8 flex flex-col items-center text-center">
