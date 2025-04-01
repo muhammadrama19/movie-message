@@ -10,19 +10,19 @@ export default function CustomCard({ poster, title, year, receiver, message, hre
           <img src={poster} alt="Movie Poster" className="w-full h-full object-cover" />
         </div>
         {/* Movie Title & Year */}
-        <p className="text-sm font-bold text-gray-500 text-center md:text-left truncate w-full">{title}</p>
+        <p className="text-sm font-bold text-gray-500 text-center md:text-left truncate w-full mt-5">{title}</p>
         <p className="text-xs font-bold text-gray-400 text-center md:text-left">{year}</p>
       </div>
 
       {/* Right - Content */}
-      <div className="flex flex-col justify-between w-full md:w-2/3 p-4 flex-grow">
-        <div className="text-center md:text-left flex-grow">
+      <div className="flex flex-col justify-between w-full md:w-2/3 p-2 flex-grow">
+        <div className="text-center md:text-left flex-grow sm:mt-2 text-left">
           <p className="text-sm text-gray-600 truncate w-full">To: {receiver}</p>
           <p className="text-sm text-gray-600 mt-1 line-clamp-3">{message}</p>
         </div>
 
         {/* Button Section */}
-        <div className="flex justify-center md:justify-end mt-auto">
+        <div className="flex justify-center md:justify-end mt-auto sm:mt-4 justify-end">
           <Button className="px-4 py-2 rounded-md text-sm">View</Button>
         </div>
       </div>
