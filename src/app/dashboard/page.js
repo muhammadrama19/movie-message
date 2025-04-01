@@ -80,7 +80,7 @@ export default function Dashboard() {
   // Fetch messages with useCallback to prevent unnecessary re-fetching
   const fetchMessages = useCallback(async () => {
     try {
-      const response = await fetch("/api/movie_message");
+      const response = await fetch("/api/menfess_sample");
       if (!response.ok) throw new Error("Failed to fetch data");
 
       const data = await response.json();

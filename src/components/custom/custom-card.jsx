@@ -1,31 +1,33 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
-export default function CustomCard({ poster, title, year, receiver, message }) {
+export default function CustomCard({ poster, title, year, receiver, message, href }) {
   return (
-    <Card className="p-4 shadow-lg bg-white rounded-xl flex flex-col md:flex-row overflow-hidden">
-      {/* Left - Poster (Full height) */}
-      <div className="w-full md:w-1/3 flex flex-col items-center md:items-start rounded-lg">
-        <img
-          src={poster}
-          className="w-full md:w-auto md:h-full object-cover rounded-lg border border-gray-300 shadow-sm"
-          alt="Poster"
-        />
-        {/* Movie Title below Poster */}
-        <p className="text-sm font-bold text-gray-500  text-center md:text-left bg">{title}</p>
-        <p className="text-sm font-bold text-gray-400  text-center md:text-left bg">{year}</p>
+    <Card className="p-4 shadow-lg bg-white rounded-xl flex flex-col md:flex-row overflow-hidden w-full max-w-sm md:max-w-md h-[200px]">
+      {/* Left - Poster */}
+      <div className="w-full md:w-1/3 flex flex-col items-center md:items-start">
+      <div className="w-full aspect-[2/3] rounded-md overflow-hidden shadow-sm bg-gray-200 flex items-center justify-center">
+                <img
+                    src={poster}
+                    alt="Movie Poster"
+                    className="w-full h-full object-cover"
+                />
+            </div>
+        {/* Movie Title & Year */}
+        <p className="text-sm font-bold text-gray-500 text-center md:text-left truncate w-full">{title}</p>
+        <p className="text-xs font-bold text-gray-400 text-center md:text-left">{year}</p>
       </div>
 
-      {/* Right - Content (Text + Button) */}
+      {/* Right - Content */}
       <div className="flex flex-col justify-between w-full md:w-2/3 p-4">
-        <div className="text-center md:text-left">
-          <p className="text-sm text-gray-600">To: {receiver}</p>
-          <p className="text-sm text-gray-600 mt-1">{message}</p>
+        <div className="text-center md:text-left flex-grow">
+          <p className="text-sm text-gray-600 truncate w-full">To: {receiver}</p>
+          <p className="text-sm text-gray-600 mt-1 line-clamp-3">{message}</p>
         </div>
-        
+
         {/* Button Section */}
-        <div className="flex justify-center md:justify-end mt-4 md:mt-0">
-          <Button className="px-6 py-2 rounded-md">View</Button>
+        <div className="flex justify-center md:justify-end mt-auto">
+          <Button className="px-4 py-2 rounded-md text-sm">View</Button>
         </div>
       </div>
     </Card>

@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import CustomCard from "@/components/custom/custom-card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Spinner } from "@/components/ui/spinner";
+import Link from "next/link";
 
 export default function MenfessBrowse() {
   const [menfess, setMenfess] = useState([]);
@@ -80,8 +81,8 @@ export default function MenfessBrowse() {
         </div>
       </div>
 
-        {/* Loading Spinner */}
-        {isSearching && (
+      {/* Loading Spinner */}
+      {isSearching && (
         <div className="flex justify-center items-center my-8">
           <Spinner size="large" />
         </div>
@@ -89,32 +90,39 @@ export default function MenfessBrowse() {
 
       {/* Menfess List or Skeleton Loader */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {isLoading
-          ? 
-            Array.from({ length: limit }).map((_, index) => (
-              <Skeleton
-                key={index}
-                className="h-[200px] w-full bg-gray-200 rounded-md"
+        {isLoading ? (
+          Array.from({ length: limit }).map((_, index) => (
+            <Skeleton
+              key={index}
+              className="h-[200px] w-full bg-gray-200 rounded-md"
+            />
+          ))
+        ) : // Show Menfess List when loaded
+        menfess.length > 0 ? (
+          menfess.map((m) => (
+            <Link
+              key={m.id}
+              href={`/menfess_detail?id=${m.id}`}
+              className="flex flex-col items-center justify-center"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <CustomCard
+                key={m.id}
+                title={m.title}
+                poster={m.poster_url}
+                release_year={m.release_year}
+                message={m.message}
+                receiver={m.receiver}
+                className="text-lg"
               />
-            ))
-          : // Show Menfess List when loaded
-            menfess.length > 0 ? (
-              menfess.map((m) => (
-                <CustomCard
-                  key={m.id}
-                  title={m.title}
-                  poster={m.poster_url}
-                  release_year={m.release_year}
-                  message={m.message}
-                  receiver={m.receiver}
-                  className="text-lg"
-                />
-              ))
-            ) : (
-              <p className="text-gray-500 text-center col-span-full text-lg">
-                No menfess found.
-              </p>
-            )}
+            </Link>
+          ))
+        ) : (
+          <p className="text-gray-500 text-center col-span-full text-lg">
+            No menfess found.
+          </p>
+        )}
       </div>
 
       {/* Pagination */}
@@ -136,7 +144,9 @@ export default function MenfessBrowse() {
               <>
                 <PaginationItem>
                   <PaginationNext
-                    onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
+                    onClick={() =>
+                      setPage((prev) => Math.min(prev + 1, totalPages))
+                    }
                     disabled={page >= totalPages}
                   >
                     Next
