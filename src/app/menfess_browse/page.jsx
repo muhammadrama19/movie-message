@@ -53,7 +53,7 @@ export default function MenfessBrowse() {
   const totalPages = useMemo(() => Math.ceil(total / limit), [total, limit]);
 
   return (
-    <div className="p-6 max-w-6xl mx-auto">
+    <div className="p-2 max-w-6xl mx-auto">
       <h2 className="text-3xl md:text-4xl mb-8 text-gray-800 font-bold text-center">
         Menfess Browse
       </h2>

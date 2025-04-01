@@ -98,7 +98,7 @@ export default function Send() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full px-4 py-10">
+    <div className="flex flex-col items-center justify-center w-full px-4 py-5">
       <div className="text-center mb-8">
         <h1 className="text-3xl md:text-6xl font-bold">Send Message</h1>
         <p className="text-lg md:text-xl text-gray-700/80 mt-2">
