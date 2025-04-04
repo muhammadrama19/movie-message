@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="w-full overflow-x-hidden">
       <body className="bg-gray-50 antialiased w-full">
-        <header className="bg-white shadow-md sticky top-0 z-10 w-full">
+        <header className="bg-white shadow-md top-0 z-10 w-full">
           <div className="w-full px-4 py-4 flex items-center justify-between gap-2">
             <Link
               href="/"
