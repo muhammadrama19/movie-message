@@ -93,15 +93,6 @@ export default function MovieBrowse() {
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search movies..."
           />
-          <Button
-            className="px-4 py-2 bg-gray-300 hover:bg-gray-500 text-gray-900 hover:text-white transition duration-300 ease-in-out rounded-r-md"
-            onClick={() => {
-              setPage(1); // Ensure page resets to 1 on search
-              setQuery(search);
-            }}
-          >
-            Search
-          </Button>
         </div>
 
         {/* Genre Dropdown */}

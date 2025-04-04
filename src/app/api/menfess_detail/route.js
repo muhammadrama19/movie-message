@@ -44,13 +44,14 @@ export async function GET(req) {
     // Format the created_at field
     const formattedDetails = {
       ...messageDetails[0],
-      created_at: new Intl.DateTimeFormat("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
+      created_at: new Intl.DateTimeFormat("id-ID", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      timeZone: "Asia/Jakarta",
       }).format(new Date(messageDetails[0].created_at)),
     };
 

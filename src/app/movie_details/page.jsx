@@ -81,7 +81,8 @@ function MovieDetails() {
       <div className="w-full lg:w-2/3 bg-white shadow-md rounded-lg">
         {/* Header (Sticky) */}
         <div className="bg-white z-10 p-4 shadow-sm sticky top-0 rounded-lg">
-          <h3 className="text-2xl font-bold">Messages</h3>
+          <h3 className="text-2xl font-bold">Menfess from the World of {movie?.title}</h3>
+          <p className="text-sm text-gray-500">Anonymous confessions, untold stories, and hidden emotions—all tied to this movie. Read what others have to say.</p>
         </div>
 
         {/* Messages List (Scrollable) */}
