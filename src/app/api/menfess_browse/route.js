@@ -15,6 +15,7 @@ export async function GET(req) {
 
     // Fetch paginated menfess data
     const menfess = await prisma.messages.findMany({
+      orderBy: { created_at: "desc" },
       where: whereClause,
       skip: offset,
       take: limit,

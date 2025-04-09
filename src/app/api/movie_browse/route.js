@@ -21,12 +21,12 @@ export async function GET(req) {
             whereClause.title = { contains: search, mode: "insensitive" }; // Case-insensitive search
         }
 
-        // ✅ **Filter by Genre (Many-to-Many)**
+       
         if (genreId) {
             whereClause.movie_genres = { some: { genre_id: parseInt(genreId, 10) } };
         }
 
-        // 🔹 **Get Movies with Pagination & Filters**
+     
         const movies = await prisma.movies.findMany({
             where: whereClause,
             skip: offset,
@@ -50,7 +50,6 @@ export async function GET(req) {
 
         const total = await prisma.movies.count({ where: whereClause });
 
-        // ✅ **Format Response**
         const formattedMovies = movies.map(movie => ({
             id: movie.id,
             title: movie.title,
