@@ -14,6 +14,20 @@ import {
 import Link from "next/link";
 import { Toaster } from "@/components/ui/sonner";
 
+export const metadata = {
+  title: "Movie-Menfess",
+  description: "Share messages about your favorite movies",
+  icons: {
+    icon: "/movie-icon-bw.svg",
+    shortcut: "/movie-icon-bw.svg",
+    apple: "/movie-icon-bw.svg",
+    other: {
+      rel: "apple-touch-icon-precomposed",
+      url: "/movie-icon-bw.svg",
+    },
+  },
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="w-full overflow-x-hidden">
@@ -32,7 +46,7 @@ export default function RootLayout({ children }) {
                 <NavigationMenuItem>
                   <DropdownMenu>
                     <DropdownMenuTrigger className="hover:text-gray-600">
-                      Browse 
+                      Browse
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-48">
                       <DropdownMenuItem asChild>

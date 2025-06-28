@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512px" height="512px" viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <title>Movie-Menfess Icon</title>
+    <defs>
+        <linearGradient x1="0%" y1="0%" x2="100%" y2="100%" id="movieGradient">
+            <stop stop-color="#3B82F6" offset="0%"></stop>
+            <stop stop-color="#2563EB" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect fill="url(#movieGradient)" x="0" y="0" width="512" height="512" rx="80"></rect>
+        
+        <!-- Film Reel -->
+        <circle cx="256" cy="256" r="160" fill="#FFFFFF" fill-opacity="0.2"></circle>
+        
+        <!-- Film Holes -->
+        <circle cx="256" cy="100" r="20" fill="#FFFFFF"></circle>
+        <circle cx="412" cy="256" r="20" fill="#FFFFFF"></circle>
+        <circle cx="256" cy="412" r="20" fill="#FFFFFF"></circle>
+        <circle cx="100" cy="256" r="20" fill="#FFFFFF"></circle>
+        
+        <!-- Speech Bubble -->
+        <path d="M200,170 L310,170 C325.464,170 338,182.536 338,198 L338,250 C338,265.464 325.464,278 310,278 L270,278 L240,308 L240,278 L200,278 C184.536,278 172,265.464 172,250 L172,198 C172,182.536 184.536,170 200,170 Z" fill="#FFFFFF"></path>
+        
+        <!-- M Letter -->
+        <path d="M215,210 L225,210 L235,240 L245,210 L255,210 L255,250 L245,250 L245,225 L235,250 L225,250 L215,225 L215,250 L205,250 L205,210 L215,210 Z" fill="#3B82F6"></path>
+        
+        <!-- Lines representing text in speech bubble -->
+        <rect x="265" y="210" width="40" height="8" rx="4" fill="#3B82F6"></rect>
+        <rect x="265" y="230" width="40" height="8" rx="4" fill="#3B82F6"></rect>
+    </g>
+</svg>
